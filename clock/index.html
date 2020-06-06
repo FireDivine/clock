@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style_digclock.css" rel="stylesheet">
+    <link href="style_analogclock.css" rel="stylesheet">
+    <link href="slider_style.css" rel="stylesheet">
+
+    <title>Clock Project</title>
+</head>
+<body>
+    <header>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="2" value="1" class="slider" id="myRange" onchange='showVal(value);'>
+            <span id="demo"></span>
+          </div>
+    </header>
+    <div class="section_clock">
+    <div id="dit_Clock">
+        <h2>Digitial Clock</h2>
+        <div id="dit_time">
+            <div><span id="hour">00</span><span>hours</span></div>
+            <div><span id="mins">00</span><span>mins</span></div>
+            <div><span id="second">00</span><span>second</span></div>
+        </div>
+    </div>
+    <div id="ana_clock" class="ana_clock">
+      
+            <div class="hour"> <div class="hr" id="hr"></div></div>
+            <div class="mins"><div class="mns" id="mns"></div></div>
+            <div class="second"><div class="sec" id="sec"></div></div>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+        // analog clock - doesnt work in a function as never called like the digitial clock below.
+            const deg = 6;
+            const hour2 = document.querySelector('.hr');
+            const mins2 = document.querySelector('.mns');
+            const sec2 = document.querySelector('.sec');
+
+            setInterval(()=>{
+                let d = new Date();
+                let h = d.getHours() * 30;
+                let m = d.getMinutes() * deg;
+                let se = d.getSeconds() * deg;
+
+                hour2.style.transform = `rotateZ(${(h)+(m/12)}deg)`;
+                mins2.style.transform = `rotateZ(${m}deg)`;
+                sec2.style.transform = `rotateZ(${se}deg)`;
+               
+        });
+    
+        function dig_clock(){
+            var hour = document.getElementById("hour");
+            var mins = document.getElementById("mins");
+            var sec = document.getElementById("second");
+
+            var h = new Date().getHours();
+            var m = new Date().getMinutes();
+            var se =new  Date().getSeconds();
+
+            hour.innerHTML = h;
+            mins.innerHTML = m;
+            sec.innerHTML = se;
+        }
+            var interval = setInterval(dig_clock,1000);
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = "Change slider to change clock"; // Display the default slider value
+
+            // Update the current slider value (each time you drag the slider handle)
+            slider.oninput = function() {
+            
+            slider.onchange= showVal(this.value);
+           
+            }
+
+            function showVal(newVal){
+                if(newVal==1){
+                    document.getElementById("dit_Clock").style.display = "none";
+                    document.getElementById("ana_clock").style.display = "flex";
+                   output.innerHTML="Analog Clock";
+                }
+                else if(newVal==2)
+                {
+                    document.getElementById("dit_Clock").style.display = "block";
+                                document.getElementById("ana_clock").style.display = "none";
+                                output.innerHTML="Ditgial Clock";
+                }
+                
+            }
+        </script>
+</body>
+
+</html>
