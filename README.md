@@ -1,2 +1,3 @@
 # clock
-analog and ditigal clock with slider
+Analog and Ditigal Clock with Slider
+Made with HTML and CSS
